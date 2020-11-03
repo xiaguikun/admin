@@ -1,0 +1,48 @@
+.home-wrap {
+  background: #f1f3f5;
+}
+.home-wrap .nav-menu {
+  height: 100vh;
+  background: #001529;
+}
+.home-wrap .nav-menu h1 {
+  color: white;
+  height: 90px;
+  line-height: 90px;
+  text-align: center;
+  background: #002140;
+  margin-bottom: 0;
+}
+.home-wrap header {
+  background: white;
+}
+.home-wrap header .header-top {
+  height: 60px;
+  line-height: 60px;
+  padding: 0 40px;
+  border-bottom: 1px solid #1DA57A;
+}
+.home-wrap header .header-bottom {
+  height: 30px;
+  line-height: 30px;
+}
+.home-wrap header .header-bottom .title {
+  text-align: center;
+  position: relative;
+}
+.home-wrap header .header-bottom .title::after {
+  content: '';
+  display: block;
+  width: 0;
+  height: 0;
+  border: 15px solid;
+  border-color: white transparent transparent;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.home-wrap header .header-bottom .time {
+  padding-right: 40px;
+  text-align: right;
+}
