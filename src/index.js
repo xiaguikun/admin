@@ -1,8 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import AppRouter from './router/AppRouter.jsx'
+import store from './store/index.js';
+import {Provider} from 'react-redux';
+
+import './App.less';
 
 ReactDOM.render(
-    <App />,
+  <Provider store={store}>    
+    <AppRouter />
+  </Provider>,
   document.getElementById('root')
 );

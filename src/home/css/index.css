@@ -12,6 +12,7 @@
   text-align: center;
   background: #002140;
   margin-bottom: 0;
+  overflow: hidden;
 }
 .home-wrap header {
   background: white;
@@ -29,6 +30,8 @@
 .home-wrap header .header-bottom .title {
   text-align: center;
   position: relative;
+  font-size: 18px;
+  font-weight: 500;
 }
 .home-wrap header .header-bottom .title::after {
   content: '';
@@ -45,4 +48,15 @@
 .home-wrap header .header-bottom .time {
   padding-right: 40px;
   text-align: right;
+}
+.home-wrap .home-main {
+  height: 450px;
+  margin: 20px;
+}
+.home-wrap .home-footer {
+  height: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #bbb;
 }

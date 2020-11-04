@@ -8,16 +8,17 @@ import Footer from './Footer.jsx';
 
 import './index.less';
 
-const HomeUi = () => {
+const HomeUi = (props) => {
+    // console.log(props);
     return (
         <div className='home-wrap'>
             <Row>
                 <Col span={4}>
                     <NavMenu></NavMenu>
                 </Col>
-                <Col span={20}>
+                <Col span={20} style={{height:'100vh',overflow:'auto'}}>
                     <Header></Header>
-                    <Main></Main>
+                    <Main children={props.children}></Main>
                     <Footer></Footer>
                 </Col>
             </Row>

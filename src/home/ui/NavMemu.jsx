@@ -1,4 +1,6 @@
 import React from 'react';
+import {useHistory} from 'react-router-dom';
+import {useDispatch} from 'react-redux';
 
 import { Menu } from 'antd';
 
@@ -9,9 +11,18 @@ const { SubMenu } = Menu;
 
 
 const NavMemu = () => {
+    const dispatch=useDispatch();
+
     // console.log(menuList);
+    const history=useHistory()
+
     function handleClick(e) {
-        console.log('click', e);
+        dispatch({
+            type:'toChangeTitle',
+            title:e.item.props.title
+        })
+        history.push(e.key);
+        // console.log('click', e);
       }
 
     return (
@@ -26,14 +37,14 @@ const NavMemu = () => {
                                     {
                                         item.children.map((ite)=>{
                                             return (
-                                                <Menu.Item key={ite.key} >{ite.title}</Menu.Item>
+                                                <Menu.Item key={ite.key} title={ite.title}>{ite.title}</Menu.Item>
                                             )
                                         })
                                     }
                                 </SubMenu>
                             )
                         }else{
-                            return <Menu.Item key={item.key}>{item.title}</Menu.Item>
+                            return <Menu.Item key={item.key} title={item.title}>{item.title}</Menu.Item>
                         }
                     })
                 }

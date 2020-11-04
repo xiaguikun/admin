@@ -1,4 +1,5 @@
 import React , {useState,useEffect} from 'react';
+import {useSelector} from 'react-redux';
 
 import { Row, Col, Typography } from 'antd';
 const { Text, Link } = Typography;
@@ -6,27 +7,29 @@ const { Text, Link } = Typography;
 
 
 const Header = () => {
-    const [state,setState]=useState({
-        username:'张三',
-        pageTitle:'首页',
+    const pageTitle=useSelector(store=>store.pageTitle)
+
+    const [state]=useState({
+        username:'芋头',
+        
+    })
+    const [newTime,setnewTime]=useState({
         time:new Date().toLocaleString()
     })
     useEffect(()=>{
-        setTimeout(()=>{
-            console.log(1111);
-            setState({
-                ...state,
-                time:new Date().toLocaleString()
+        let timer = setInterval(()=>{
+            // console.log(1111);
+            setnewTime((prev)=>{
+                return {
+                    ...prev,
+                    time:new Date().toLocaleString()
+                }
             })
         },1000)
-        // setInterval(()=>{
-        //     console.log(2222);
-        //     setState({
-        //         ...state,
-        //         time:new Date().toLocaleString()
-        //     })
-        // },1000)
-    },[state])
+        return ()=>{
+            clearInterval(timer);
+        }
+    },[])
     return (
         <header>
             <Row justify='end' className='header-top'>
@@ -36,8 +39,8 @@ const Header = () => {
                 </Col>
             </Row>
             <Row className='header-bottom'>
-                <Col span={5} className='title'>{state.pageTitle}</Col>
-                <Col span={19} className='time'> {state.time} </Col>
+                <Col span={5} className='title'>{pageTitle}</Col>
+                <Col span={19} className='time'> {newTime.time} </Col>
             </Row>
 
         </header>

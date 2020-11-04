@@ -1,12 +1,12 @@
 import React from 'react';
 
-import {Home} from './home/index.js';
+// import {Home} from './home/index.js';
 
 import './App.less';
 
-const App = () => (
+const App = (props) => (
   <div className="App">
-      <Home></Home>
+      {props.children}
   </div>
 );
 

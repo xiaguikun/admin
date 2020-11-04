@@ -12,6 +12,7 @@
             text-align:center;
             background:#002140;
             margin-bottom:0;
+            overflow: hidden;
         }
     }
     header{
@@ -28,6 +29,8 @@
             .title{
                 text-align:center;
                 position:relative;
+                font-size:18px;
+                font-weight:500;
                 &::after{
                     content:'';
                     display:block;
@@ -46,5 +49,16 @@
                 text-align:right;
             }
         }
+    }
+    .home-main{
+        height: 450px;
+        margin:20px;
+    }
+    .home-footer{
+        height: 120px;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        color:@light-color;
     }
 }
