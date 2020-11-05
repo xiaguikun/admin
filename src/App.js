@@ -1,13 +1,13 @@
-import React from 'react';
+// import React from 'react';
 
-// import {Home} from './home/index.js';
+// // import {Home} from './home/index.js';
 
-import './App.less';
+// import './App.less';
 
-const App = (props) => (
-  <div className="App">
-      {props.children}
-  </div>
-);
+// const App = (props) => (
+//   <div className="App">
+//       {props.children}
+//   </div>
+// );
 
-export default App;
+// export default App;

@@ -7,3 +7,7 @@ export const getWeather=(params)=>{
 export const getPic=(params)=>{
     return http.get('/pics/list',params);
 }
+
+export const getBasicList=(params)=>{
+    return http.get('/tables/basic/list',params)
+}
