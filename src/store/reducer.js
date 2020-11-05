@@ -1,5 +1,5 @@
 const defaultState={
-    pageTitle:'首页'
+    pageTitle:sessionStorage.getItem('pageTitle') ? sessionStorage.getItem('pageTitle') : '首页'
 }
 
 const reducer=(state=defaultState,action)=>{

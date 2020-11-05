@@ -20,7 +20,8 @@ const NavMemu = () => {
         dispatch({
             type:'toChangeTitle',
             title:e.item.props.title
-        })
+        });
+        sessionStorage.setItem('pageTitle',e.item.props.title);
         history.push(e.key);
         // console.log('click', e);
       }
