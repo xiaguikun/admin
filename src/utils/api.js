@@ -11,3 +11,7 @@ export const getPic=(params)=>{
 export const getBasicList=(params)=>{
     return http.get('/tables/basic/list',params)
 }
+
+export const deleteData=(params)=>{
+    return http.post('/tables/basic/delete',params)
+}

@@ -3,7 +3,7 @@ import qs from 'qs';
 
 const instance=axios.create({
     baseURL:'http://pudge.wang:3000/api',
-    timeout:1500
+    timeout:2000
 });
 
 const http={
