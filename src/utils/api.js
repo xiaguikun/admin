@@ -12,6 +12,32 @@ export const getBasicList=(params)=>{
     return http.get('/tables/basic/list',params)
 }
 
+//删除数据
 export const deleteData=(params)=>{
     return http.post('/tables/basic/delete',params)
+}
+
+//高级表格
+export const getHeightList=(params)=>{
+    return http.get('/hightables/list',params);
+}
+
+//获取城市列表
+export const postCityList=(params)=>{
+    return http.post('/cities/manage/list',params);
+}
+
+//请求城市下拉菜单
+export const getCityList=(params)=>{
+    return http.get('/cities/list',params)
+}
+
+//添加城市列表
+export const addCityList=(params)=>{
+    return http.post('/cities/manage/add',params)
+}
+
+//
+export const delItem=(params)=>{
+    return http.post('/cities/manage/del',params)
 }

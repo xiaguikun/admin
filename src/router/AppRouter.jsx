@@ -14,6 +14,8 @@ import Gallery from '../page/ui/Gallery.jsx';
 import Login from '../page/form/Login.jsx';
 import Register from '../page/form/Register.jsx';
 import Basic from '../page/table/Basic.jsx';
+import HeightTabs from '../page/table/HeightTabs.jsx';
+import City from '../page/city/Citys.jsx';
 
 
 const AppRouter = () => {
@@ -35,6 +37,8 @@ const AppRouter = () => {
                             <Route path='/admin/form/login' component={Login}></Route>
                             <Route path='/admin/form/reg' component={Register}></Route>
                             <Route path='/admin/table/basic' component={Basic}></Route>
+                            <Route path='/admin/table/high' component={HeightTabs}></Route>
+                            <Route path='/admin/city' component={City}></Route>
                         </Switch>
                     </Home>}>
                         

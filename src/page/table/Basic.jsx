@@ -1,6 +1,7 @@
 import React,{useEffect,useState} from 'react';
 
-import { Card ,Space,Table,Modal,message,Pagination } from 'antd';
+import { Card ,Space,Table,Modal,message,Button } from 'antd';
+import { ExclamationCircleOutlined } from '@ant-design/icons';
 
 import {getBasicList,deleteData} from '../../utils/api.js';
 
@@ -111,46 +112,65 @@ const Basic = () => {
             }
         ],
         keys:[],
-        keys2:[]
+        keys2:[],
+        selectedRows:[],
+        total:1
     })
+
+    const getList=async (page=1)=>{
+      const res=await getBasicList({
+          page:page
+      });
+      const list=res.data.result;
+      list.forEach((item)=>{
+           return item.key=item._id
+      })
+      // console.log(res);
+      setState((prevState)=>{
+          return {
+              ...prevState,
+              dataSource:list,
+              total:res.data.total
+          }
+      })
+   }
     useEffect(()=>{
-        async function fn(){
-           const res=await getBasicList({
-               page:1
-           });
-        //    console.log(res.data.result);
-           const list=res.data.result;
-           list.forEach((item)=>{
-                return item.key=item._id
-           })
-        //    console.log(list);
-           setState((prevState)=>{
-               return {
-                   ...prevState,
-                   dataSource:list
-               }
-           })
-        }
-        fn();
+      getList();
     },[])
 
-    const onPageChnage=(page)=>{
-        async function fn(){
-            const res=await getBasicList({
-                page:page
-            });
-            const list=res.data.result;
-            list.forEach((item)=>{
-                 return item.key=item._id
-            })
-            setState((prevState)=>{
-                return {
-                    ...prevState,
-                    dataSource:list
-                }
-            })
-         }
-         fn();
+    const deleteItem=()=>{
+      let names=state.selectedRows.map((item)=>{
+        return item.userName
+      })
+      let str=names.join();
+      Modal.confirm({
+        title: '确定要删除?',
+        icon: <ExclamationCircleOutlined />,
+        content: `${str}这些信息吗?`,
+        okText: 'Yes',
+        okType: 'danger',
+        cancelText: 'No',
+        onOk() {
+          let arrPromise=[];
+          state.keys2.forEach((item)=>{
+            arrPromise.push(deleteData({id:item}))
+          });
+          // console.log(arrPromise);
+          Promise.all(arrPromise).then(()=>{
+            getList();
+            message.success({
+                content: '删除成功',
+                className: 'custom-class',
+                style: {
+                  marginTop: '20vh',
+                },
+              });
+          })
+        },
+        onCancel() {
+          console.log('Cancel');
+        },
+      });
     }
     return (
         <>            
@@ -193,59 +213,75 @@ const Basic = () => {
                     />
                 </Card>
                 <Card title='Mock-删除'>
+                  <Button style={{marginBottom:'10px'}} onClick={deleteItem}>删除</Button>
                     <Table 
                     columns={state.columns} dataSource={state.dataSource} bordered={true} pagination={false}
                     rowSelection={{
                         type: 'checkbox',
-                        selectedRowKeys:state.keys2
-                      }}
-                      onRow={record => {
-                        return {
-                          onClick: () => {
-                            //   console.log(record.key);
-                            setState({
-                                ...state,
-                                keys2:[record.key]
-                            })
-                              Modal.info({
-                                title: '确认删除',
-                                content: (
-                                  <div>
-                                    <p>{record.userName}</p>
-                                  </div>
-                                ),
-                                onOk() {
-                                    async function fn(){
-                                        const res=await deleteData({
-                                            id:record.key
-                                        });
-                                        // console.log(res.data);
-                                        fnn(res.data.msg)
-                                    }
-                                   fn()
-                                },
-                              });
-                              const fnn=(msg)=>{
-                                message.success({
-                                    content: msg,
-                                    className: 'custom-class',
-                                    style: {
-                                      marginTop: '20vh',
-                                    },
-                                  });
+                        selectedRowKeys:state.keys2,
+                        onChange(selectedRowKeys, selectedRows){
+                          // console.log(selectedRowKeys,selectedRows);
+                          setState((prevState)=>{
+                              return {
+                                ...prevState,
+                                keys2:selectedRowKeys,
+                                selectedRows:selectedRows
                               }
-                          }
-                        };
+                          })
+                        }
                       }}
+                      // onRow={record => {
+                      //   return {
+                      //     onClick: () => {
+                      //       console.log(record.key);
+                      //       setState({
+                      //           ...state,
+                      //           keys2:[record.key]
+                      //       })
+                      //         Modal.info({
+                      //           title: '确认删除',
+                      //           content: (
+                      //             <div>
+                      //               <p>{record.userName}</p>
+                      //             </div>
+                      //           ),
+                      //           onOk() {
+                      //               async function fn(){
+                      //                   const res=await deleteData({
+                      //                       id:record.key
+                      //                   });
+                      //                   // console.log(res.data);
+                      //                   fnn(res.data.msg)
+                      //               }
+                      //              fn()
+                      //           },
+                      //         });
+                      //         const fnn=(msg)=>{
+                      //           message.success({
+                      //               content: msg,
+                      //               className: 'custom-class',
+                      //               style: {
+                      //                 marginTop: '20vh',
+                      //               },
+                      //             });
+                      //         }
+                      //     }
+                      //   };
+                      // }}
                     />
                 </Card>
                 <Card title='Mock-分页'>
                     <Table 
                     columns={state.columns} dataSource={state.dataSource} bordered={true}
-                    pagination={false}
-                    />
-                    <Pagination defaultCurrent={1} total={30} style={{float:'right',marginTop:'10px'}} 
-                        onChange={onPageChnage}
+                    pagination={{
+                      defaultCurrent:1,
+                      total:state.total,
+                      onChange(page){
+                        getList(page)
+                      },
+                      showTotal:(total) => `总共有 ${total} 条数据`,
+                      showQuickJumper:true
+                    }}
                     />
                 </Card>
                
