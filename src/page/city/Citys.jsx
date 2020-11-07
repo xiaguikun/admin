@@ -1,13 +1,15 @@
 import React,{useEffect,useState} from 'react';
 
-import { Button, Space,Card,Table,Form,Select ,Modal ,Input,DatePicker } from 'antd';
+import { Button, Space,Card,Table,Form,Select ,Modal ,Input,DatePicker,message } from 'antd';
 
 import {postCityList,getCityList,addCityList,delItem} from '../../utils/api.js';
+// import moment from 'moment';
 
 const { Option } = Select;
 
 const Citys = () => {
     const [form] = Form.useForm();
+    const [form2] = Form.useForm();
     //转换时间格式
     function add0(m){return m<10?'0'+m:m }
     function format(shijianchuo){
@@ -76,7 +78,8 @@ const Citys = () => {
         ],
         total:1,
         citys:[],
-        visible:false
+        visible:false,
+        defaultCurrent:1
     })
 
     const handleDelete=async (text)=>{
@@ -87,6 +90,12 @@ const Citys = () => {
         // console.log(res);
         if(res.status===200){
             getList();
+            message.success({
+                content:res.data.msg,
+                style:{
+                    marginTop:'35vh'
+                }
+            });
         }
     }
     const getList=async (value)=>{
@@ -126,10 +135,16 @@ const Citys = () => {
     const onFinish=(value)=>{
         getList(value);
         // console.log(value);
+        setState(prevState=>{
+            return {
+                ...prevState,
+                defaultCurrent:1
+            }
+        })
     }   
     const resteData=()=>{
         getList();
-        form.resetFields()
+        form.resetFields()//可以将form表单内的所有内容清空
     }
     const addData=async (obj)=>{
         const res=await addCityList(obj);
@@ -141,15 +156,24 @@ const Citys = () => {
                     ...prevState,
                     visible:false
                 }
-            })
+            });
+            form2.resetFields();
+            message.success({
+                content:res.data.msg,
+                style:{
+                    marginTop:'35vh'
+                }
+            });
         }
     }
     const handleOk = () => {
-        // console.log(form.getFieldsValue());
-        const obj =form.getFieldsValue();
+        const obj =form2.getFieldsValue();
+        // obj.openTime=moment(obj.openTime).valueOf();
         obj.openTime=obj.openTime.valueOf();
+        // console.log(obj.openTime)
         obj.handleTime=new Date().getTime();
-        addData(obj)
+        // console.log(obj);
+        addData(obj);
       };
     
       const handleCancel = (e) => {
@@ -159,6 +183,7 @@ const Citys = () => {
                 visible:false
             }
         })
+        form2.resetFields();
       };
     const showModal=()=>{
         setState(prevState=>{
@@ -168,6 +193,7 @@ const Citys = () => {
             }
         })
     }
+
     return (
         <>
             <Space direction='vertical' style={{width:'100%'}}>
@@ -227,7 +253,7 @@ const Citys = () => {
                         onOk={handleOk}
                         onCancel={handleCancel}
                         >
-                            <Form form={form} name="horizontal_login" onFinish={onFinish}
+                            <Form form={form2} name="horizontal_login" 
                              labelCol= { {span: 8 }}
                              wrapperCol={ {span: 16} }
                             >
@@ -279,7 +305,7 @@ const Citys = () => {
                     </Modal>
                     <Table columns={state.columns} dataSource={state.cityList} 
                     pagination={{
-                        defaultCurrent:1,
+                        defaultCurrent:state.defaultCurrent,
                         total:state.total,
                         showTotal:()=>{
                             return `总共有${state.total}条数据`

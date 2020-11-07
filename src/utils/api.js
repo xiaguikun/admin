@@ -37,7 +37,12 @@ export const addCityList=(params)=>{
     return http.post('/cities/manage/add',params)
 }
 
-//
+//删除城市管理数据
 export const delItem=(params)=>{
     return http.post('/cities/manage/del',params)
+}
+
+//请求订单数据
+export const postOrderList=(params)=>{
+    return http.post('/orders/list',params);
 }
