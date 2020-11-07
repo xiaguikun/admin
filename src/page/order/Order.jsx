@@ -117,6 +117,7 @@ const Order = () => {
     }
 
     const finishOrder=async ()=>{
+        // console.log(state.selectRow[0]);
         const res=await finishItem({
             id:state.selectRow[0],
             end_time:new Date().getTime()
@@ -128,14 +129,15 @@ const Order = () => {
                 page:1,
                 page_size:50
             })
+            message.success({
+                content: '订单结束成功',
+                className: 'custom-class',
+                style: {
+                  marginTop: '45vh',
+                },
+              });
         }
-        message.success({
-            content: '订单结束成功',
-            className: 'custom-class',
-            style: {
-              marginTop: '45vh',
-            },
-          });
+        
     }
     return (
         <>
