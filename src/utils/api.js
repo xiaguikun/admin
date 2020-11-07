@@ -46,3 +46,8 @@ export const delItem=(params)=>{
 export const postOrderList=(params)=>{
     return http.post('/orders/list',params);
 }
+
+//订单管理结束
+export const finishItem=(params)=>{
+    return http.post('/orders/over',params)
+}

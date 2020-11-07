@@ -12,7 +12,10 @@ function* changeOrder(action){
     // console.log(action);
     const orderRes=yield postOrderList({
         page:action.page,
-        page_size:action.page_size
+        page_size:action.page_size,
+        start_time:action.start_time,
+        end_time:action.end_time,
+        status:action.status
     });
     // console.log(orderRes);
     orderRes.data.result.forEach(item=>{
@@ -22,11 +25,12 @@ function* changeOrder(action){
 }
 
 
+
 function* mySaga() {
     yield takeEvery('toChangeTitle',changeTitle);
     
     //匹配订单管理
-    yield takeEvery('typeOrder',changeOrder)
+    yield takeEvery('typeOrder',changeOrder);
 } 
 
 export default mySaga
