@@ -17,7 +17,7 @@ function* changeOrder(action){
         end_time:action.end_time,
         status:action.status
     });
-    // console.log(orderRes);
+    // console.log(orderRes.data.total);
     orderRes.data.result.forEach(item=>{
         return item.key=item._id;
     })

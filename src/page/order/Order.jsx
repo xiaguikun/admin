@@ -1,13 +1,13 @@
 import React ,{useEffect,useState} from 'react';
 import {useDispatch,useSelector} from 'react-redux'
-import { Space, Card,Button ,Table,Form , DatePicker,Select,message} from 'antd';
+import { Space, Card,Button ,Table,Form , DatePicker,Select,message,Typography} from 'antd';
 
 import {finishItem} from '../../utils/api.js';
 
 
 
 import useGetTime from './useTimer.js'
-
+const {Link } =Typography;
 const { Option } = Select;
 
 const Order = () => {
@@ -84,13 +84,14 @@ const Order = () => {
     const store = useSelector(store=>store)
     // console.log(store);
     const [state,setState]=useState({
-        selectRow:[]
+        selectRow:[],
+        page_size:10
     })
     useEffect(()=>{
         dispatch({
             type:'typeOrder',
             page:1,
-            page_size:50
+            page_size:10
         })
     },[dispatch])
 
@@ -174,7 +175,9 @@ const Order = () => {
                     </Form>
                 </Card>
                 <Card>
-                    <Button type='primary' style={{marginRight:'10px',marginBottom:'10px'}} >订单详情</Button>
+                    <Button type='primary' style={{marginRight:'10px',marginBottom:'10px'}} >
+                        <Link href='/admin/ui/buttons' target='_blank'>订单详情</Link>
+                    </Button>
                     <Button type='primary' onClick={finishOrder}>结束订单</Button>
                     <Table columns={columns} dataSource={store.orderList} 
                     rowSelection={{
@@ -196,10 +199,31 @@ const Order = () => {
                     }}
                     pagination={{
                         defaultCurrent:1,
-                        defaultPageSize:20,
-                        total:store.total,
+                        defaultPageSize:10,
+                        total:store.orderTotal,
                         showSizeChanger:true,
-                        showQuickJumper:true
+                        showQuickJumper:true,
+                        onShowSizeChange(current, size){
+                            setState(prevState=>{
+                                return {
+                                    ...prevState,
+                                    page_size:size
+                                }
+                            })
+                            dispatch({
+                                type:'typeOrder',
+                                page:1,
+                                page_size:size
+                            })
+                        },
+                        onChange(page,page_size){
+                            // console.log(page_size);
+                            dispatch({
+                                type:'typeOrder',
+                                page:page,
+                                page_size:page_size
+                            })
+                        }
                     }}
                     />
                 </Card>
