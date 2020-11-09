@@ -2,6 +2,11 @@
 # yarn lockfile v1
 
 
+"@amap/amap-jsapi-loader@0.0.7":
+  version "0.0.7"
+  resolved "https://registry.npm.taobao.org/@amap/amap-jsapi-loader/download/@amap/amap-jsapi-loader-0.0.7.tgz#76b5cbcc22f6844003474e37eed1dcd879cb117c"
+  integrity sha1-drXLzCL2hEADR0437tHc2HnLEXw=
+
 "@ant-design/colors@^3.1.0":
   version "3.2.2"
   resolved "https://registry.npm.taobao.org/@ant-design/colors/download/@ant-design/colors-3.2.2.tgz#5ad43d619e911f3488ebac303d606e66a8423903"
@@ -9855,9 +9860,17 @@ redux-saga@^1.1.3:
   dependencies:
     "@redux-saga/core" "^1.1.3"
 
-redux@^4.0.4, redux@^4.0.5:
+redux@^4.0.4:
   version "4.0.5"
   resolved "https://registry.npm.taobao.org/redux/download/redux-4.0.5.tgz#4db5de5816e17891de8a80c424232d06f051d93f"
+  integrity sha1-TbXeWBbheJHeioDEJCMtBvBR2T8=
+  dependencies:
+    loose-envify "^1.4.0"
+    symbol-observable "^1.2.0"
+
+redux@^4.0.5:
+  version "4.0.5"
+  resolved "https://registry.npm.taobao.org/redux/download/redux-4.0.5.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fredux%2Fdownload%2Fredux-4.0.5.tgz#4db5de5816e17891de8a80c424232d06f051d93f"
   integrity sha1-TbXeWBbheJHeioDEJCMtBvBR2T8=
   dependencies:
     loose-envify "^1.4.0"

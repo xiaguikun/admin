@@ -17,6 +17,7 @@ import Basic from '../page/table/Basic.jsx';
 import HeightTabs from '../page/table/HeightTabs.jsx';
 import City from '../page/city/Citys.jsx';
 import Order from '../page/order/Order.jsx';
+import BikeMap from '../page/map/BikeMpa.jsx';
 
 
 const AppRouter = () => {
@@ -41,6 +42,7 @@ const AppRouter = () => {
                             <Route path='/admin/table/high' component={HeightTabs}></Route>
                             <Route path='/admin/city' component={City}></Route>
                             <Route path='/admin/order' component={Order}></Route>
+                            <Route path='/admin/bikeMap' component={()=><BikeMap></BikeMap>}></Route>
                         </Switch>
                     </Home>}>
                         
