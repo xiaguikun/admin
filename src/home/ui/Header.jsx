@@ -1,5 +1,6 @@
 import React , {useState,useEffect} from 'react';
 import {useSelector} from 'react-redux';
+import {useHistory} from 'react-router-dom';
 
 import {getWeather} from '../../utils/api.js'
 
@@ -9,6 +10,8 @@ const { Text, Link } = Typography;
 
 
 const Header = () => {
+
+    const history=useHistory();
     const pageTitle=useSelector(store=>store.pageTitle)
 
     const [state,setState]=useState({
@@ -25,7 +28,8 @@ const Header = () => {
             setState((prevState)=>{
                 return {
                     ...prevState,
-                    weather:res.data.result
+                    weather:res.data.result,
+                    username:sessionStorage.getItem('username')
                 }
             })
         }
@@ -43,12 +47,17 @@ const Header = () => {
             clearInterval(timer);
         }
     },[])
+
+    const userExit=()=>{
+        history.push('/login');
+        sessionStorage.clear();
+    }
     return (
         <header>
             <Row justify='end' className='header-top'>
                 <Col>
                     <Text style={{marginRight:'15px'}}>欢迎 {state.username}</Text>
-                    <Link>退出</Link>
+                    <Link onClick={userExit}>退出</Link>
                 </Col>
             </Row>
             <Row className='header-bottom'>

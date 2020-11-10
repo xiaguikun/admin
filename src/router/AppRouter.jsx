@@ -18,6 +18,11 @@ import HeightTabs from '../page/table/HeightTabs.jsx';
 import City from '../page/city/Citys.jsx';
 import Order from '../page/order/Order.jsx';
 import BikeMap from '../page/map/BikeMpa.jsx';
+import Interval from '../page/charts/Interval.jsx';
+import Pre from '../page/charts/Pie.jsx';
+import Line from '../page/charts/Line.jsx';
+import Login2 from '../login/Login.jsx';
+import Permission from '../page/permission/Permission.jsx';
 
 
 const AppRouter = () => {
@@ -25,6 +30,7 @@ const AppRouter = () => {
         <BrowserRouter>
                 <Switch>
                     <Redirect from='/' to='/admin' exact></Redirect>
+                    <Route path='/login' component={Login2}></Route>
                     <Route path='/admin' component={()=><Home>
                         <Switch>
                             <Redirect from='/admin' to='/admin/home' exact></Redirect>
@@ -43,6 +49,10 @@ const AppRouter = () => {
                             <Route path='/admin/city' component={City}></Route>
                             <Route path='/admin/order' component={Order}></Route>
                             <Route path='/admin/bikeMap' component={()=><BikeMap></BikeMap>}></Route>
+                            <Route path='/admin/charts/bar' component={Interval}></Route>
+                            <Route path='/admin/charts/pie' component={Pre}></Route>
+                            <Route path='/admin/charts/line' component={Line}></Route>
+                            <Route path='/admin/permission' component={Permission}></Route>
                         </Switch>
                     </Home>}>
                         

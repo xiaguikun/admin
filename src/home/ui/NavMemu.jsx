@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useEffect,useState} from 'react';
 import {useHistory} from 'react-router-dom';
 import {useDispatch} from 'react-redux';
 
@@ -11,6 +11,19 @@ const { SubMenu } = Menu;
 
 
 const NavMemu = () => {
+
+    const [state,setState]=useState({
+        auth: []
+    })
+    useEffect(()=>{
+        setState((prevState)=>{
+            return {
+                ...prevState,
+                auth:JSON.parse(sessionStorage.getItem('auth'))
+            }
+        })
+    },[])
+    // console.log(state.auth);
     const dispatch=useDispatch();
 
     // console.log(menuList);
@@ -32,20 +45,28 @@ const NavMemu = () => {
             <Menu onClick={handleClick} mode="vertical" theme='dark'>
                 {
                     menuList.map((item)=>{
-                        if(!!item.children){
-                            return (
-                                <SubMenu key={item.key} title={item.title}>
-                                    {
-                                        item.children.map((ite)=>{
-                                            return (
-                                                <Menu.Item key={ite.key} title={ite.title}>{ite.title}</Menu.Item>
-                                            )
-                                        })
-                                    }
-                                </SubMenu>
-                            )
+                        if(state.auth.includes(item.auth)){
+                            if(!!item.children){
+                                return (
+                                    <SubMenu key={item.key} title={item.title}>
+                                        {
+                                            item.children.map((ite)=>{
+                                                if(state.auth.includes(ite.auth)){
+                                                    return (
+                                                        <Menu.Item key={ite.key} title={ite.title}>{ite.title}</Menu.Item>
+                                                    )
+                                                }else{
+                                                    return null;
+                                                }
+                                            })
+                                        }
+                                    </SubMenu>
+                                )
+                            }else{
+                                return <Menu.Item key={item.key} title={item.title}>{item.title}</Menu.Item>
+                            }
                         }else{
-                            return <Menu.Item key={item.key} title={item.title}>{item.title}</Menu.Item>
+                            return null;
                         }
                     })
                 }

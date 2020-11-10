@@ -51,3 +51,13 @@ export const postOrderList=(params)=>{
 export const finishItem=(params)=>{
     return http.post('/orders/over',params)
 }
+
+//用户登录
+export const userLogin=(params)=>{
+    return http.post('users/login',params)
+}
+
+//用户请求
+export const getLoginUser=(params)=>{
+    return http.get('/users/list',params);
+}
