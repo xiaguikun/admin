@@ -23,13 +23,14 @@ import Pre from '../page/charts/Pie.jsx';
 import Line from '../page/charts/Line.jsx';
 import Login2 from '../login/Login.jsx';
 import Permission from '../page/permission/Permission.jsx';
+import Rich from '../page/rich/Rich.jsx';
 
 
 const AppRouter = () => {
     return (
         <BrowserRouter>
                 <Switch>
-                    <Redirect from='/' to='/admin' exact></Redirect>
+                    <Redirect from='/' to='/login' exact></Redirect>
                     <Route path='/login' component={Login2}></Route>
                     <Route path='/admin' component={()=><Home>
                         <Switch>
@@ -53,6 +54,7 @@ const AppRouter = () => {
                             <Route path='/admin/charts/pie' component={Pre}></Route>
                             <Route path='/admin/charts/line' component={Line}></Route>
                             <Route path='/admin/permission' component={Permission}></Route>
+                            <Route path='/admin/rich' component={Rich}></Route>
                         </Switch>
                     </Home>}>
                         
